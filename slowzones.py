@@ -32,20 +32,20 @@ ATP_AUTH_PASSWORD = os.environ.get("ATP_AUTH_PASSWORD")
 DRY_RUN = False
 DEBUG = False
 
-twitter_client = api = tweepy.Client(
-    bearer_token=os.environ.get("BEARER_TOKEN"),
-    access_token=ACCESS_KEY,
-    access_token_secret=ACCESS_SECRET,
-    consumer_key=CONSUMER_KEY,
-    consumer_secret=CONSUMER_SECRET,
-)
+# twitter_client = api = tweepy.Client(
+#     bearer_token=os.environ.get("BEARER_TOKEN"),
+#     access_token=ACCESS_KEY,
+#     access_token_secret=ACCESS_SECRET,
+#     consumer_key=CONSUMER_KEY,
+#     consumer_secret=CONSUMER_SECRET,
+# )
 
-mastodon_client = mastodon.Mastodon(
-    api_base_url="https://better.boston",
-    client_id=MASTODON_CLIENT_KEY,
-    client_secret=MASTODON_CLIENT_SECRET,
-    access_token=MASTODON_ACCESS_TOKEN,
-)
+# mastodon_client = mastodon.Mastodon(
+#     api_base_url="https://better.boston",
+#     client_id=MASTODON_CLIENT_KEY,
+#     client_secret=MASTODON_CLIENT_SECRET,
+#     access_token=MASTODON_ACCESS_TOKEN,
+# )
 
 bluesky_client = atproto.Client(base_url=ATP_PDS_HOST)
 bluesky_client.login(login=ATP_AUTH_HANDLE, password=ATP_AUTH_PASSWORD)
@@ -92,35 +92,35 @@ def main():
 
     # otherwise, post slow zones to socials
     else:
-        # try tweeting
-        try:
-            send_new_slow_zone_tweets(slowzones_started_yesterday, twitter_client)
-            send_fixed_slow_zone_tweets(slowzones_ended_yesterday, twitter_client)
-            send_updated_slow_zone_tweets(slowzones_changed_yesterday, twitter_client)
-        except Exception as e:
-            logging.error(f"Failed to tweet: {e}")
-        else:
-            logging.info("Tweeted successfully")
+        # # try tweeting
+        # try:
+        #     send_new_slow_zone_tweets(slowzones_started_yesterday, twitter_client)
+        #     send_fixed_slow_zone_tweets(slowzones_ended_yesterday, twitter_client)
+        #     send_updated_slow_zone_tweets(slowzones_changed_yesterday, twitter_client)
+        # except Exception as e:
+        #     logging.error(f"Failed to tweet: {e}")
+        # else:
+        #     logging.info("Tweeted successfully")
 
-        # try slacking
-        try:
-            send_new_slow_zone_slacks(slowzones_started_yesterday)
-            send_fixed_slow_zone_slacks(slowzones_ended_yesterday)
-            send_updated_slow_zone_slacks(slowzones_changed_yesterday)
-        except Exception as e:
-            logging.error(f"Failed to send Slack messages: {e}")
-        else:
-            logging.info("Sent Slack messages successfully")
+        # # try slacking
+        # try:
+        #     send_new_slow_zone_slacks(slowzones_started_yesterday)
+        #     send_fixed_slow_zone_slacks(slowzones_ended_yesterday)
+        #     send_updated_slow_zone_slacks(slowzones_changed_yesterday)
+        # except Exception as e:
+        #     logging.error(f"Failed to send Slack messages: {e}")
+        # else:
+        #     logging.info("Sent Slack messages successfully")
 
         # # try tooting
-        try:
-            send_new_slow_zone_toots(slowzones_started_yesterday, mastodon_client)
-            send_fixed_slow_zone_toots(slowzones_ended_yesterday, mastodon_client)
-            send_updated_slow_zone_toots(slowzones_changed_yesterday, mastodon_client)
-        except Exception as e:
-            logging.error(f"Failed to toot: {e}")
-        else:
-            logging.info("Tooted successfully")
+        # try:
+        #     send_new_slow_zone_toots(slowzones_started_yesterday, mastodon_client)
+        #     send_fixed_slow_zone_toots(slowzones_ended_yesterday, mastodon_client)
+        #     send_updated_slow_zone_toots(slowzones_changed_yesterday, mastodon_client)
+        # except Exception as e:
+        #     logging.error(f"Failed to toot: {e}")
+        # else:
+        #     logging.info("Tooted successfully")
 
         # try bluesky posting
         try:
