@@ -1,4 +1,4 @@
-import tweepy
+# import tweepy
 import mastodon as mastodon
 import requests
 import atproto
@@ -54,10 +54,10 @@ bluesky_client.login(login=ATP_AUTH_HANDLE, password=ATP_AUTH_PASSWORD)
 def main():
     slow_zones = requests.get("https://dashboard.transitmatters.org/static/slowzones/all_slow.json")
 
-    if datetime.fromisoformat(slow_zones.json()["updated_on"]).date() != date.today():
-        logging.error("Slow zone data was not updated yet today")
-        # exit if issues
-        sys.exit(1)
+    # if datetime.fromisoformat(slow_zones.json()["updated_on"]).date() != date.today():
+    #     logging.error("Slow zone data was not updated yet today")
+    #     # exit if issues
+    #     sys.exit(1)
 
     slow_zones_data = slow_zones.json()["data"]
 
